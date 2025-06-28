@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI SOLUTIONS 공방</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cafe-bg"></div>
+    
+    <!-- 게임 시작 화면 -->
+    <div id="start-screen" class="start-screen">
+        <div class="start-content">
+            <img src="assets/ai_solutions.png" alt="AI Solutions" style="width: 100%; max-width: 420px; display: block; margin: 0 auto 16px auto;">
+            <h1 class="game-title">AI SOLUTIONS 공방</h1>
+            <div class="game-description">
+                <p><strong>AI 솔루션을 제조하는 공방에 오신 것을 환영합니다!</strong></p>
+                <p>고객의 주문에 맞는 데이터와 알고리즘을 조합하여</p>
+                <p>완벽한 AI 솔루션을 만들어보세요.</p>
+                <div class="game-features">
+                    <div class="feature">📊 8가지 데이터</div>
+                    <div class="feature">🤖 5가지 알고리즘</div>
+                    <div class="feature">⚡ 60초 제한 시간</div>
+                    <div class="feature">🏆 최고 점수에 도전해보세요!</div>
+                </div>
+            </div>
+            <button id="start-game-btn" class="start-btn">공방 문 열기 🚪</button>
+        </div>
+    </div>
+    
+    <div class="main-container" id="game-container" style="display: none;">
+        <!-- 상단 간판 -->
+        <header class="shop-signboard">
+            <span class="shop-emoji"></span>
+            <span class="shop-title">AI SOLUTIONS 공방</span>
+        </header>
+
+        <!-- 카운터/테이블 영역 -->
+        <div class="counter-area">
+            <div class="customer-wrap">
+                <div class="customer-avatar">
+                    <img src="assets/customer_review.png" alt="고객" class="customer-img">
+                </div>
+                <div class="customer-bubble">
+                    <div id="customer-problem" class="bubble-text">"월별 매출을 예측하고 싶어요!"</div>
+                </div>
+                <div class="feedback-bubble" id="feedback-bubble" style="display: none;">
+                    <div id="feedback-text" class="bubble-text"></div>
+                </div>
+            </div>
+            <div class="bubble-buttons">
+                <button id="no-btn" class="bubble-btn">힌트 주세요</button>
+            </div>
+            <div class="hint-area" id="hint-area" style="display: none;">
+                <div class="hint-content" id="hint-content"></div>
+            </div>
+        </div>
+
+        <!-- 조리대/재료 영역 -->
+        <div class="kitchen-area">
+            <div class="kitchen-table">
+                <div class="ingredients-board">
+                    <div class="ingredients-row">
+                        <div class="ingredients-row-label">데이터</div>
+                        <div class="ingredient" data-type="data-review">
+                            <div class="ingredient-icon">📝</div>
+                            <div class="ingredient-label">상품 리뷰 텍스트</div>
+                        </div>
+                        <div class="ingredient" data-type="data-xray">
+                            <div class="ingredient-icon">🖼</div>
+                            <div class="ingredient-label">의료 X-ray 이미지</div>
+                        </div>
+                        <div class="ingredient" data-type="data-cctv">
+                            <div class="ingredient-icon">📹</div>
+                            <div class="ingredient-label">CCTV 영상</div>
+                        </div>
+                        <div class="ingredient" data-type="data-pos">
+                            <div class="ingredient-icon">📈</div>
+                            <div class="ingredient-label">POS 매출표</div>
+                        </div>
+                        <div class="ingredient" data-type="data-gps">
+                            <div class="ingredient-icon">🗺</div>
+                            <div class="ingredient-label">GPS 위치 기록</div>
+                        </div>
+                        <div class="ingredient" data-type="data-iot">
+                            <div class="ingredient-icon">🏭</div>
+                            <div class="ingredient-label">IoT 센서 로그</div>
+                        </div>
+                        <div class="ingredient" data-type="data-grade">
+                            <div class="ingredient-icon">🏫</div>
+                            <div class="ingredient-label">학생 성적표</div>
+                        </div>
+                        <div class="ingredient" data-type="data-behavior">
+                            <div class="ingredient-icon">🛒</div>
+                            <div class="ingredient-label">고객 행동 로그</div>
+                        </div>
+                    </div>
+                    <div class="ingredients-row">
+                        <div class="ingredients-row-label">알고리즘</div>
+                        <div class="ingredient" data-type="algo-classifier">
+                            <div class="ingredient-icon">🤖</div>
+                            <div class="ingredient-label">분류</div>
+                        </div>
+                        <div class="ingredient" data-type="algo-regression">
+                            <div class="ingredient-icon">📊</div>
+                            <div class="ingredient-label">예측</div>
+                        </div>
+                        <div class="ingredient" data-type="algo-clustering">
+                            <div class="ingredient-icon">🧩</div>
+                            <div class="ingredient-label">군집</div>
+                        </div>
+                        <div class="ingredient" data-type="algo-anomaly">
+                            <div class="ingredient-icon">🕵️‍♂️</div>
+                            <div class="ingredient-label">이상탐지</div>
+                        </div>
+                        <div class="ingredient" data-type="algo-recommend">
+                            <div class="ingredient-icon">🗂</div>
+                            <div class="ingredient-label">추천</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 솔루션 조합 슬롯 -->
+            <div class="solution-area">
+                <div class="solution-label">AI 솔루션 조합</div>
+                <div class="solution-slot" id="solution-slot">
+                    <span class="slot-item" id="slot-data"></span>
+                    <span class="slot-plus">+</span>
+                    <span class="slot-item" id="slot-algo"></span>
+                    <span class="slot-arrow">→</span>
+                    <div class="slot-result-container" id="slot-result-container">
+                        <span class="slot-result" id="slot-result"></span>
+                        <span class="slot-result-text" id="slot-result-text"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 정보 -->
+        <footer class="game-footer">
+            <div class="timer">🕒 <span id="time">01:30.0</span></div>
+            <div class="score">점수 <span id="score">0</span></div>
+        </footer>
+
+        <!-- 게임 오버 모달 -->
+        <div id="game-over-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>오늘 영업 종료!</h2>
+                <p>오늘의 수익: <span id="final-score">0</span>골드</p>
+                <p>최고 기록: <span id="high-score">0</span>골드</p>
+                <div class="modal-buttons">
+                    <button id="restart-btn">다시 영업하기</button>
+                    <button id="home-btn">상점 문 닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bgm-controls">
+        <button id="bgm-toggle">⏸️ 음악 일시정지</button>
+    </div>
+    <audio id="bgm" src="assets/bgm.mp3" loop preload="auto"></audio>
+    <script type="module" src="game.js"></script>
+</body>
+</html> 
